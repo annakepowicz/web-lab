@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Jan Kowalski">
+    <meta name="description" content="Strona przykładowa pokazująca użycie wielu elementów w HTML">
+    <meta name="keywords" content="HTML, przykładowa strona, laoratoria, .NET"> 
+    <meta http-equiv="refresh" content="300">
+
+    <title>Moja strona(Anna)</title>
+    
+</head>
+<body>
+    <font size="5">
+        <nav id="top">
+            <a href="#specjalne_formatowanie">1. Prezentacja znaków specjalnych i formatowania</a><br>
+            <a href="#listy">2. Listy</a><br>
+            <a href="#definicje">3. Lista definicji</a><br>
+            <a href="#tabela">4. Przykład tabeli</a><br>
+            <a href="#formularz">5. Formularz</a><br>
+        </nav>
+    <section>
+    <h3 id="specjalne_formatowanie"><strong>Prezentacja znaków specjalnych i formatowania</strong></h3>
+        <p>
+            ampersand - &amp<br>
+            apostrofe - &apos<br>
+            greater than - &gt<br>
+            less than - &lt<br>
+            quote - &quot<br>
+            <em> akcentowany, podkreślony (ang. emphasized) tekst, spowoduje wyświetlenie pochyloną czcionką</em><br>
+            <small> mniejsza czcionka</small><br>
+            <mark> zaznaczony tekst</mark><br>
+            <del> tekst usunięty (będzie przekreślony)</del><br>
+        </p>
+    </section>
+    <aside>Przykład dygresji</aside>
+    <h3 id="listy"><strong>Listy</strong></h3>
+    <ul>
+        <li>First list element
+            <ol>
+                <li>A - Second level element</li>
+
+                <li>B - Second level element
+                    <ul>
+                        <li>Third level elem.</li>
+                        <li>Third level elem.
+                            <ol type="i">
+                                <li>4th level elem.1</li>
+                                <li>4th level elem.2</li>
+                            </ol>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>C - Second level element</li>
+            </ol>
+        </li>
+
+        <li>Second list element</li>
+        <li>Third list element</li>
+    </ul>
+    <h3 id="definicje"><strong>Lista defincji</strong></h3>
+    <dl>
+        <dt>Lista nieuporządkowana (ul)</dt>
+        <dd>Lista, w której elementy wyświetlane są w punktach (kropki).</dd>
+
+        <dt>Lista uporządkowana (ol)</dt>
+        <dd>Lista, w której elementy mają numerację lub literację.</dd>
+
+        <dt>Element listy (li)</dt>
+        <dd>Pojedynczy punkt w liście, który znajduje się wewnątrz &ltul&gt lub &ltol&gt.</dd>
+    </dl>
+    <h3 id="tabela">Przykładowa tabela</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th colspan="5">nagłówek</th>
+            </tr>
+            <tr>
+                <th>Col 1</th><th>Col 2</th><th>Col 3</th><th>Col 4</th><th>Col 5</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="2" rowspan="3"> 2 x 3 </td>
+                <td colspan="3"> 3 x 1 </td>
+            </tr>
+            <tr>
+                <td rowspan="2"> 1 x 2 </td>
+                <td>B</td><td>C</td>
+            </tr>
+            <tr>
+                <td>D</td><td>E</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr><td colspan="5">Stopka tabeli</td></tr>
+        </tfoot>
+    </table>
+    <h3 id=formularz>Formularz</h3>
+    <form action="#" method="post">
+
+        <label for="nick">Nick:</label>
+        <input type="text" id="nick" name="nick" required><br><br>
+
+        <label for="haslo">Hasło:</label>
+        <input type="password" id="haslo" name="haslo" required><br><br>
+
+        <label for="urodziny">Data urodzenia:</label>
+        <input type="date" id="urodziny" name="urodziny"><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email"><br><br>
+
+        <label for="telefon">Telefon:</label>
+        <input type="tel" id="telefon" name="telefon"><br><br>
+
+        <label for="wiek">Wiek:</label>
+        <input type="number" id="wiek" name="wiek" min="1" max="120"><br><br>
+
+        <label for="kolor">Ulubiony kolor:</label>
+        <input type="color" id="kolor" name="kolor"><br><br>
+
+        <p>Płeć:</p>
+        <input type="radio" id="mezczyzna" name="plec" value="M">
+        <label for="mezczyzna">Mężczyzna</label>
+        <input type="radio" id="kobieta" name="plec" value="K">
+        <label for="kobieta">Kobieta</label><br><br>
+        <input type="radio" id="inne" name="plec" value="U">
+        <label for="inne">Wolę nie odpowiadać</label><br><br>
+
+        <p>Zainteresowania:</p>
+        <input type="checkbox" id="sport" name="zainteresowania" value="sport">
+        <label for="sport">Sport</label>
+        <input type="checkbox" id="muzyka" name="zainteresowania" value="muzyka">
+        <label for="muzyka">Muzyka</label>
+        <input type="checkbox" id="gry" name="zainteresowania" value="gry">
+        <label for="gry">Gry</label><br><br>
+
+        <label for="miasto">Miasto:</label>
+        <select id="miasto" name="miasto">
+            <option value="gdańsk">Gdańsk</option>
+            <option value="krakow">Kraków</option>
+            <option value="lublin">Lublin</option>
+            <option value="poznan">Poznań</option>
+            <option value="wroclaw">Wrocław</option>
+            <option value="warszawa">Warszawa</option>
+        </select><br><br>
+
+        <input type="submit" value="Wyślij">
+        <input type="reset" value="Wyczyść">
+    </form>
+    <article>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, similique adipisci minus eaque nemo corrupti pariatur vero. Magni ipsam voluptatem consequuntur deleniti incidunt maiores? Dicta ipsa odit fugiat ex deserunt?</article>
+    <ol type="1">
+        <li>First list element
+            <ol type="A">
+                <li>Second level element</li>
+                <li>Second level element</li>
+            </ol>
+        <li>First list element
+        </li>
+    </ol>
+    <p><a href="#top">Powrót na górę strony</a></p>
+</font>
+</body>
+</html>
