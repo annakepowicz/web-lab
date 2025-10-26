@@ -1,0 +1,36 @@
+body {
+    font-size: 16px;
+    font-family: 'Georgia', serif; 
+}
+
+h1 {
+    /* pt - punkt drukarski */
+    font-size: 40pt; 
+    color: blue;
+    font-weight: 700; 
+    text-transform: uppercase;
+}
+
+p {
+    /* 1em = 20px (1.25 * 16px (body) = 20px) */
+    font-size: 1.25em; 
+    color: red;
+    /* Wyrównanie tekstu */
+    text-align: justify;
+}
+
+h2 {
+    /* 200% bazowego font-size: 16px = 32px */
+    font-size: 200%;
+    color: #333;
+    /* Kursywa */
+    font-style: italic; 
+    /* Odstępy między literami */
+    letter-spacing: 0.1em;
+}
+
+h3 {
+    font-size: 16px;
+    font-weight: lighter;
+    text-decoration: underline;
+}

@@ -1,0 +1,53 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    /* Długość strony jest sztucznie zwiększona, aby umożliwić przewijanie i testowanie 'fixed' */
+    height: 300vh; 
+}
+
+section {
+    min-height: 80vh; /* Każda sekcja ma dużą wysokość */
+    padding: 30px;
+    margin: 20px;
+    border: 3px solid #333;
+    color: white; /* Tekst biały dla lepszej widoczności na tle */
+}
+
+#sekcja1 {
+    background-image: url('dog.jpg'); 
+    background-repeat: no-repeat; 
+    background-position: center center;
+}
+
+/* #sekcja2 {
+    background-image: url('dog.jpg'); 
+    
+    /* Powtarzanie tylko w pionie 
+    background-repeat: repeat-y; 
+
+    background-position: left top; 
+} */
+
+#sekcja3 {
+    background-image: url('dog.jpg'); 
+    background-repeat: no-repeat; 
+    background-position: center center;
+
+    /* powiększa obrazek tak, by pokrył cały element,
+       może przyciąć krawędzie, ale zachowuje proporcje. */
+    background-size: cover; 
+
+}
+
+#sekcja4 {
+    background-image: url('dog.jpg'); 
+    background-repeat: round; 
+
+    /* Pozycjonowanie obrazka 
+       tylko w dolnej połowie sekcji - 50% 100%) */
+    background-position: 50% 100%;
+
+    /* Obrazek pozostaje na swoim miejscu*/
+    background-attachment: fixed; 
+}

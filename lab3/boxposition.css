@@ -1,0 +1,61 @@
+/* Minimalny reset */
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Długa treść dla testowania 'fixed' */
+body {
+    padding-bottom: 1000px; 
+    padding-left: 10px;
+}
+
+/* Podstawowy wygląd elementu */
+.box {
+    width: 250px;
+    height: 70px;
+    margin: 10px;
+    border: 1px solid black;
+    text-align: center;
+    line-height: 70px; /* Wyśrodkowanie pionowe tekstu */
+    color: white;
+}
+
+/* 1. STATIC (Domyślne) */
+.box-static {
+    position: static; 
+    background-color: #3f51b5;
+}
+
+/* 2. RELATIVE (Względne) */
+.box-relative {
+    position: relative;
+    top: 20px;    /* Przesunięty w dół */
+    left: 20px;   /* Przesunięty w prawo */
+    background-color: #ff9800;
+}
+
+/* Rodzic dla elementu Absolute */
+.parent-for-absolute {
+    position: relative; /* Ustanawia kontekst */
+    width: 500px;
+    height: 200px;
+    border: 2px dashed #009688;
+    margin: 30px 10px;
+}
+
+/* 3. ABSOLUTE (Bezwzględne) */
+.box-absolute {
+    position: absolute;
+    top: 5px;     /* Względem górnej krawędzi rodzica */
+    right: 5px;   /* Względem prawej krawędzi rodzica */
+    background-color: #009688;
+}
+
+/* 4. FIXED (Stałe) */
+.box-fixed {
+    position: fixed; /* Stałe względem okna */
+    bottom: 10px;
+    left: 10px;
+    background-color: #e91e63;
+}

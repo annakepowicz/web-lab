@@ -1,0 +1,9 @@
+section p{
+    color:pink;
+}
+section > p{
+    background-color: purple;
+}
+p.important.hard{
+    font-size: smaller;
+}

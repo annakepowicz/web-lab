@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimalny Test Pozycjonowania</title>
+    <link rel="stylesheet" href="boxposition.css"> 
+</head>
+<body>
+
+    <div class="box box-static">STATIC</div>
+
+    <div class="box box-relative">RELATIVE (top: 20px, left: 20px)</div>
+
+    <div class="parent-for-absolute">
+        RODZIC RELATIVE
+        <div class="box box-absolute">ABSOLUTE (top: 5px, right: 5px)</div>
+    </div>
+
+    <div class="box box-fixed">FIXED (bottom)</div>
+    
+    <div style="height: 500px;"></div>
+    
+</body>
+</html>
