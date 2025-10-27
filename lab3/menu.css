@@ -1,0 +1,56 @@
+
+nav {
+    background-color: #333;
+    position: relative; 
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+/* Pozycjonujemy główne elementy w jednej linii */
+nav > ul > li {
+    display: inline-block;
+    position: relative; /* Ustanawia kontekst dla rozwijanych podmenu */
+}
+
+/* Styl linków */
+nav a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: white;
+    background-color: #333;
+}
+
+/* Efekt najechania na główne linki */
+nav a:hover {
+    background-color: #555;
+}
+
+
+
+/* poziom rozwijanych */
+nav ul ul {
+    display: none;
+    position: absolute;
+    top: 100%; /* Rozpoczyna się dokładnie pod elementem nadrzędnym (li) */
+    left: 0;
+    min-width: 150px;
+    z-index: 100;
+    text-align: left;
+    border: 1px solid #444;
+}
+
+/* Sprawiamy, że podlista jest widoczna, gdy najedziemy na element nadrzędny (li) */
+nav ul li:hover > ul {
+    display: block;
+}
+
+/* Wiersze podlisty muszą być z powrotem elementami blokowymi */
+nav ul ul li {
+    display: block;
+}
