@@ -1,0 +1,21 @@
+.drawingCanvas {
+            border: 2px solid #381a40;
+            background-color: #ededf6;
+            display: block; 
+            margin: 20px auto;
+}
+#canvas1 {
+    width: 500px;
+    height: 300px;
+}
+
+#canvas2 {
+    width: 300px;
+    height: 200px;
+}
+.spacer {
+    height: 120vh;
+    background-color: #ededf6;
+    padding: 20px;
+    text-align: center;
+}
