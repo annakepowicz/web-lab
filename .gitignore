@@ -1,2 +1,5 @@
 .clj-kondo/
 .lsp/
+bin/
+obj/
+.csproj/
