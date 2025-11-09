@@ -29,6 +29,7 @@ function createTable(n) {
             const product = rowNum * colNum;
             td.textContent = product;
             td.className = (product % 2 === 0) ? 'even' : 'odd';
+            td.addEventListener('click', sumOnClick);
             row.appendChild(td);
         });
 
@@ -36,6 +37,17 @@ function createTable(n) {
     });
 
     return table;
+}
+
+function sumOnClick() {
+    let row = this.parentNode;
+    let cells = row.querySelectorAll('td');
+    let sum = 0;
+    cells.forEach(cell => {
+        sum += parseInt(cell.textContent, 10);
+        //if (!isNaN(val)) sum += val;
+    });
+    alert("Sum of the row is: " + sum);
 }
 
 function init() {
