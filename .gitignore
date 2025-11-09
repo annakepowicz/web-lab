@@ -2,7 +2,7 @@
 .lsp/
 bin/
 obj/
-wwwroot/lib/
+*.wwwroot/lib/
 
 # User-specific files
 *.user
