@@ -45,7 +45,6 @@ function sumOnClick() {
     let sum = 0;
     cells.forEach(cell => {
         sum += parseInt(cell.textContent, 10);
-        //if (!isNaN(val)) sum += val;
     });
     alert("Sum of the row is: " + sum);
 }
