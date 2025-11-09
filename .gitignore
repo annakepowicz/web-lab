@@ -2,4 +2,19 @@
 .lsp/
 bin/
 obj/
-.csproj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.userprefs
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Secrets
+appsettings.*.json
+!appsettings.json   # wyjątek - zostaje tylko podstawowy
