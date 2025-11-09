@@ -1,0 +1,70 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+
+.drawingCanvas {
+            border: 2px solid #381a40;
+            background-color: #ededf6;
+            display: block; 
+            margin: 20px auto;
+}
+#canvas1 {
+    width: 500px;
+    height: 300px;
+}
+
+#canvas2 {
+    width: 300px;
+    height: 200px;
+}
+.spacer {
+    height: 120vh;
+    background-color: #ededf6;
+    padding: 20px;
+    text-align: center;
+}
+
+table {
+    border-collapse: collapse;
+    width: 50%;
+    margin: 20px auto;
+}
+th, td {
+    border: 1px solid #918e91;
+    padding: 8px;
+    text-align: center;
+}
+.even {
+    background-color: #d0ede9;
+}
+.odd {
+    background-color: #e0d2f3;
+}
