@@ -3,6 +3,7 @@
 bin/
 obj/
 .wwwroot/lib/
+*.sln
 
 # User-specific files
 *.user
