@@ -85,31 +85,169 @@ printAnonymousItem(myAnonymousPerson);
 //zad5
 System.Console.WriteLine("\n--- Zadanie 5---");
 
+// void drawCard(string firstLine,
+//     string secondLine = " ",
+//     string border = "X", 
+//     int borderWidth = 1, 
+//     int width = 21)
+// {
+//     int spaceLenFirst = width - 2 * borderWidth - firstLine.Length;
+//     int spaceLenSecond = width - 2 * borderWidth - secondLine.Length;
+//     if (spaceLenFirst < 0 || spaceLenSecond < 0)
+//     {
+//         Console.WriteLine("Error: Text is too long for the specified width and border.");
+//         return;
+//     }
+
+//     writeBorder(borderWidth, width, border);
+
+//     for (int i = 0; i < 2; i++)
+//     {
+//         writeLine(i == 0 ? firstLine : secondLine, border, borderWidth, i == 0 ? spaceLenFirst : spaceLenSecond);
+//     }
+
+//     writeBorder(borderWidth, width, border);
+
+
+
+// }
+
+// void writeBorder(int borderWidth, int width, string border)
+// {
+//     for (int i = 0; i < borderWidth; i++)
+//     {
+//         for (int j = 0; j < width; j++)
+//         {
+//             Console.Write(border);
+//         }
+//         Console.WriteLine();
+//     }
+// }
+
+// void writeLine(string text, string border, int borderWidth, int spaceLen)
+// {
+//     for (int j = 0; j < borderWidth; j++)
+//     {
+//         Console.Write(border);
+//     }
+
+//     int index = spaceLen;
+
+//     for ( ; index > spaceLen/2; index --)
+//     {
+//         Console.Write(" ");
+//     }
+
+//     Console.Write(text);
+
+//     for ( ; index > 0; index --)
+//     {
+//         Console.Write(" ");
+//     }
+
+//     for (int j = 0; j < borderWidth; j++)
+//     {
+//         Console.Write(border);
+//     }
+//     Console.WriteLine();
+// }
+
+// Console.WriteLine("--- 1. Wywołanie z wszystkimi parametrami ---");
+// drawCard("Ryszard", "Ryś", "X", 2, 20);
+
+// Console.WriteLine("\n--- 2. Wywołanie tylko z parametrem wymaganym (domyślne wartości) ---");
+// drawCard("linia");
+
+// Console.WriteLine("\n--- 3. Wywołanie z pominięciem parametru drugiego i użyciem nazwanych ---");
+// drawCard("Napis", border: "=", borderWidth: 3);
+
+// Console.WriteLine("\n--- 4. Wywołanie z użyciem parametrów nazwanych w innej kolejności ---");
+// drawCard(
+//     firstLine: "Super", 
+//     width: 40, 
+//     borderWidth: 1, 
+//     secondLine: "Produkt"
+// );
+
 void drawCard(string firstLine,
     string secondLine = " ",
     string border = "X", 
     int borderWidth = 1, 
-    int width = 21)
+    int padding = 1, 
+    int width = 0)
 {
-    int spaceLenFirst = width - 2 * borderWidth - firstLine.Length;
-    int spaceLenSecond = width - 2 * borderWidth - secondLine.Length;
-    if (spaceLenFirst < 0 || spaceLenSecond < 0)
+    // Obliczanie wymaganej szerokości
+    int maxTextLength = Math.Max(firstLine.Length, secondLine.Length);
+    int calculatedWidth = maxTextLength + 2 * borderWidth + 2 * padding;
+    int finalWidth = Math.Max(calculatedWidth, width);
+
+    writeBorder(borderWidth, finalWidth, border);
+
+    for (int p = 0; p < padding; p++)
     {
-        Console.WriteLine("Error: Text is too long for the specified width and border.");
-        return;
+        writePaddingLine(border, borderWidth, finalWidth);
     }
 
-    writeBorder(borderWidth, width, border);
+    writeLine(firstLine, border, borderWidth, finalWidth, firstLine.Length, padding);
+    writeLine(secondLine, border, borderWidth, finalWidth, secondLine.Length, padding);
 
-    for (int i = 0; i < 2; i++)
+    for (int p = 0; p < padding; p++)
     {
-        writeLine(i == 0 ? firstLine : secondLine, border, borderWidth, i == 0 ? spaceLenFirst : spaceLenSecond);
+        writePaddingLine(border, borderWidth, finalWidth);
     }
 
-    writeBorder(borderWidth, width, border);
+    writeBorder(borderWidth, finalWidth, border);
+}
 
 
+void writeLine(string text, string border, int borderWidth, int finalWidth, int textLength, int padding)
+{
+    int totalSpaceLen = finalWidth - 2 * borderWidth - textLength;
+    int spaceForCentering = totalSpaceLen - 2 * padding;
+    int leftSpaces = padding + spaceForCentering / 2;
+    int rightSpaces = padding + (spaceForCentering - spaceForCentering / 2);
+
+    for (int j = 0; j < borderWidth; j++)
+    {
+        Console.Write(border);
+    }
     
+    for (int i = 0; i < leftSpaces; i++)
+    {
+        Console.Write(" ");
+    }
+
+    Console.Write(text);
+
+    for (int i = 0; i < rightSpaces; i++)
+    {
+        Console.Write(" ");
+    }
+
+    for (int j = 0; j < borderWidth; j++)
+    {
+        Console.Write(border);
+    }
+    Console.WriteLine();
+}
+
+void writePaddingLine(string border, int borderWidth, int width)
+{
+    for (int j = 0; j < borderWidth; j++)
+    {
+        Console.Write(border); 
+    }
+
+    for (int j = 0; j < width - 2 * borderWidth; j++)
+    {
+        Console.Write(" ");
+    }
+
+    for (int j = 0; j < borderWidth; j++)
+    {
+        Console.Write(border); 
+    }
+    Console.WriteLine();
 }
 
 void writeBorder(int borderWidth, int width, string border)
@@ -124,50 +262,12 @@ void writeBorder(int borderWidth, int width, string border)
     }
 }
 
-void writeLine(string text, string border, int borderWidth, int spaceLen)
-{
-    for (int j = 0; j < borderWidth; j++)
-    {
-        Console.Write(border);
-    }
-
-    int index = spaceLen;
-
-    for ( ; index > spaceLen/2; index --)
-    {
-        Console.Write(" ");
-    }
-
-    Console.Write(text);
-
-    for ( ; index > 0; index --)
-    {
-        Console.Write(" ");
-    }
-
-    for (int j = 0; j < borderWidth; j++)
-    {
-        Console.Write(border);
-    }
-    Console.WriteLine();
-}
-
-Console.WriteLine("--- 1. Wywołanie z wszystkimi parametrami ---");
-drawCard("Ryszard", "Ryś", "X", 2, 20);
-
-Console.WriteLine("\n--- 2. Wywołanie tylko z parametrem wymaganym (domyślne wartości) ---");
-drawCard("linia");
-
-Console.WriteLine("\n--- 3. Wywołanie z pominięciem parametru drugiego i użyciem nazwanych ---");
-drawCard("Napis", border: "=", borderWidth: 3);
-
-Console.WriteLine("\n--- 4. Wywołanie z użyciem parametrów nazwanych w innej kolejności ---");
-drawCard(
-    firstLine: "Super", 
-    width: 40, 
-    borderWidth: 1, 
-    secondLine: "Produkt"
-);
+Console.WriteLine("\n Padding = 3, width = 0");
+drawCard("Ryszard", "Ryś", "X", 2, 3);
+Console.WriteLine("\n Padding = 1, width = 30 ");
+drawCard("Krótki", "Bardzo Długa Linia Tekstu", "#", 1, 1, 35);
+Console.WriteLine("\n Padding = 1, width = 1 ");
+drawCard("Ryszard", "Ryś", "O", 1, 10, 1);
 
 //zad6
 System.Console.WriteLine("\n--- Zadanie 6---");
