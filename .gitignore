@@ -14,7 +14,9 @@ obj/
 # VS Code
 .vscode/
 .vs
-.DS_Store
+
+# MacOS
+*.DS_Store
 
 # Logs
 *.log
