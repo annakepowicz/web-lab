@@ -54,7 +54,7 @@ public class ToolController : Controller
         
     }
 
-
+    [Route("Tool/Solve/{a}/{b}/{c}")]
     public IActionResult Solve(double a, double b, double c)
     {
         double[] results = Count(a, b, c);
@@ -78,7 +78,7 @@ public class ToolController : Controller
         }
         else if (numOfRoots == 2)
         {
-            message = $"Dwa rozwiązania: x1 = {x1:F2}, x2 = {x2:F2}";
+            message = $"Dwa rozwiązania: x1 = {x1:F2}; x2 = {x2:F2}";
             cssClass = "result-two";
         }
         else if (numOfRoots == -1)
