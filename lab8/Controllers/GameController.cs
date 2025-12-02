@@ -1,73 +1,64 @@
-using System.Data.Common;
 using Microsoft.AspNetCore.Mvc;
 
 public class GameController : Controller
 {
+    private static int n = 10;
+    private static int randValue = 0;
+    private static int attempts = 0;
     private static Random random = new Random();
 
     [Route("Set,{n}")]
     public IActionResult Set(int n)
     {
-        TempData["n"] = n;
-        ViewBag.message = $"Number range set to: 1 to {n}.";
+        GameController.n = n;
+        
+        ViewBag.message = $"Number range set to: 0 to {n}.";
         ViewBag.cssClass = "blue";
+        
+        Console.WriteLine("[LOG] Number range set to: 0 to " + n);
+
         return View();
     }
 
     [Route("Draw")]
     public IActionResult Draw()
     {
-        if (TempData["n"] == null) return RedirectToAction("Set", new { n = 10 });
-
-        int range = (int)TempData["n"];
-        int number = random.Next(1, range + 1);
-        int n = (int)TempData["n"];
-        TempData["attempts"] = 0;
-        Console.WriteLine($"[LOG] Wywołano metodę Draw! Wylosowana liczba: {number}");
-        Console.WriteLine($"[LOG] Zakres liczb to 1 do {n}");
+        randValue = random.Next(0, n);
+        attempts = 0;
 
         ViewBag.message = "A number has been drawn. Make your guess!";
         ViewBag.cssClass = "blue";
 
-        TempData["number"] = number;
-        TempData["n"] = n; 
-
+        Console.WriteLine("[LOG] Number drawn between 0 and " + n + ": " + randValue);
+        
         return View();
     }
 
     [Route("Guess,{guess}")]
     public IActionResult Guess(int guess)
     {
-        if (TempData["number"] == null)
-        {
-            return Content("Gra nie została rozpoczęta. Użyj /Draw aby zacząć.");
-        }
+        attempts++;
+        Console.WriteLine("[LOG] Guess made, attempts: " + attempts);
 
-        int number = (int)TempData["number"];
-        int attempts = (int)TempData["attempts"];
-        Console.WriteLine($"[LOG] Wywołano metodę Guess! Liczba prób przed zmianą: {TempData["attempts"]}");
-
-        if (guess == number)
+        if (guess == randValue)
         {
-            ViewBag.message = $"Correct! The number was {number}.";
+            ViewBag.message = $"Correct! The number was {randValue}. You made {attempts} attempts.";
             ViewBag.cssClass = "green";
-
-            TempData.Remove("number");
-            TempData.Remove("attempts");
         }
         else
         {
-            attempts++; 
-            TempData["attempts"] = attempts;
             ViewBag.cssClass = "red";
 
-            if (guess < number) ViewBag.message = $"Too low! Try again. {attempts} attempts so far.";
-            else ViewBag.message = $"Too high! Try again. {attempts} attempts so far.";
-
-            TempData.Keep("number");
-            TempData.Keep("n");
+            if (guess < randValue)
+            {
+                ViewBag.message = $"Too low! Try again. {attempts} attempts so far.";
+            }
+            else
+            {
+                ViewBag.message = $"Too high! Try again. {attempts} attempts so far.";
+            }
         }
+        
         return View();
     }
-
 }
