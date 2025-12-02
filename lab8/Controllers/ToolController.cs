@@ -68,23 +68,23 @@ public class ToolController : Controller
 
         if (numOfRoots == 0)
         {
-            message = "Brak pierwiastków rzeczywistych.";
-            cssClass = "result-none";
+            message = "No real solutions.";
+            cssClass = "red";
         }
         else if (numOfRoots == 1)
         {
-            message = $"Jedno rozwiązanie: x = {x1:F2}"; 
-            cssClass = "result-one";
+            message = $"One solution: x = {x1:F2}"; 
+            cssClass = "blue";
         }
         else if (numOfRoots == 2)
         {
-            message = $"Dwa rozwiązania: x1 = {x1:F2}; x2 = {x2:F2}";
-            cssClass = "result-two";
+            message = $"Two solutions: x1 = {x1:F2}; x2 = {x2:F2}";
+            cssClass = "green";
         }
         else if (numOfRoots == -1)
         {
-            message = "Równanie tożsamościowe (nieskończenie wiele rozwiązań).";
-            cssClass = "result-infinity";
+            message = "Infinite number of solutions.";
+            cssClass = "yellow";
         }
 
         ViewBag.Message = message;
