@@ -7,7 +7,11 @@
 <h1>Create</h1>
 
 <h4>Article</h4>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -34,17 +38,19 @@
             </div>
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
+                
+                <select asp-for="Category" class="form-control" 
+                        asp-items="Html.GetEnumSelectList<lab9.Models.Category>()">
+                    <option selected="selected" value="">-- Wybierz kategorię --</option>
+                </select>
+                
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 

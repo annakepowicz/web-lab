@@ -6,7 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 //Adding custom services
-builder.Services.AddSingleton<IArticleService, ArticleServiceList>();
+//builder.Services.AddSingleton<IArticleService, ArticleServiceList>();
+builder.Services.AddSingleton<IArticleService, ArticleServiceDictionary>();
 
 var app = builder.Build();
 

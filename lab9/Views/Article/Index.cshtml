@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Articles</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -56,10 +56,32 @@
         </tr>
 }
     </tbody>
-    @section DodatkowaSekcja {
-    <div class="container-info">
-        <h4>Strona z artykułami</h4>
-        <p>Wybierz artykuł</p>
-    </div>
-}
+    @* <tfoot>
+        <tr>
+            <td colspan="2" class="text-right" style="font-weight: bold;">
+                Łączna suma cen:
+            </td>
+            <td>
+                @if(ViewBag.TotalPrice != null)
+                {
+                    @ViewBag.TotalPrice
+                }
+            </td>
+            <td></td> 
+            <td></td>
+            <td></td>
+        </tr>
+    </tfoot> *@
 </table>
+
+<div class="container-info">
+@section DodatkowaSekcja {
+    @if(ViewBag.TotalPrice != null)
+        {
+            <p style="font-weight: bold">Łączna wartość: 
+            @ViewBag.TotalPrice
+            </p>
+            
+        }
+}
+</div>

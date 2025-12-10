@@ -7,6 +7,7 @@ namespace lab9.Models
         Clothing,
         Home,
         Books,
+        Food,
         Other
     }
 

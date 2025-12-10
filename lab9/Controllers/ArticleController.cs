@@ -16,6 +16,9 @@ namespace lab9.Controllers
         public IActionResult Index()
         {
             var articles = _articleService.GetAllArticles();
+            double sum = articles.Sum(a => a.Price);
+            ViewBag.TotalPrice = sum;
+            
             return View(articles);
         }
 
