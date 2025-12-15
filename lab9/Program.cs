@@ -1,13 +1,16 @@
-using lab9.Services;
-
+using lab9.Models;
+using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
+// Rejestracja bazy danych SQLite
+builder.Services.AddDbContext<ShopDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("Lab10Context")));
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 //Adding custom services
 //builder.Services.AddSingleton<IArticleService, ArticleServiceList>();
-builder.Services.AddSingleton<IArticleService, ArticleServiceDictionary>();
+//builder.Services.AddSingleton<IArticleService, ArticleServiceDictionary>();
 
 var app = builder.Build();
 

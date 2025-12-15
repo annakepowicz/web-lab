@@ -12,9 +12,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
+            <th>Image</th> @* Nowa kolumna na zdjęcie *@
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
@@ -22,10 +20,7 @@
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ExpirationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
+                Category
             </th>
             <th></th>
         </tr>
@@ -34,7 +29,14 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Id)
+                @if (!string.IsNullOrEmpty(item.ImageName))
+                {
+                    <img src="~/upload/@item.ImageName" style="max-width: 50px; max-height: 50px;" />
+                }
+                else
+                {
+                    <span>No Image</span>
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
@@ -43,10 +45,7 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ExpirationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
+                @Html.DisplayFor(modelItem => item.Category.Name) @* Zmiana: Category.Name *@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -56,32 +55,4 @@
         </tr>
 }
     </tbody>
-    @* <tfoot>
-        <tr>
-            <td colspan="2" class="text-right" style="font-weight: bold;">
-                Łączna suma cen:
-            </td>
-            <td>
-                @if(ViewBag.TotalPrice != null)
-                {
-                    @ViewBag.TotalPrice
-                }
-            </td>
-            <td></td> 
-            <td></td>
-            <td></td>
-        </tr>
-    </tfoot> *@
 </table>
-
-<div class="container-info">
-@section DodatkowaSekcja {
-    @if(ViewBag.TotalPrice != null)
-        {
-            <p style="font-weight: bold">Łączna wartość: 
-            @ViewBag.TotalPrice
-            </p>
-            
-        }
-}
-</div>
