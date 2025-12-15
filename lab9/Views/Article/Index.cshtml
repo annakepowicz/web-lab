@@ -53,4 +53,15 @@
         </tr>
 }
     </tbody>
+    <tfoot class="table-light" style="border-top: 2px solid #dee2e6;">
+        <tr>
+            <td></td> @* *@
+            <td style="text-align: right; font-weight: bold;">Total Sum:</td>
+            <td style="font-weight: bold;">
+                @Model.Sum(i => i.Price).ToString("0.00")
+            </td>
+            <td></td> @*  *@
+            <td></td> @* P *@
+        </tr>
+    </tfoot>
 </table>
