@@ -29,14 +29,12 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @if (!string.IsNullOrEmpty(item.ImageName))
-                {
-                    <img src="~/upload/@item.ImageName" style="max-width: 50px; max-height: 50px;" />
+                @{
+                    var imagePath = string.IsNullOrEmpty(item.ImageName) 
+                        ? "/image/default.jpg" 
+                        : "/upload/" + item.ImageName;
                 }
-                else
-                {
-                    <span>No Image</span>
-                }
+                <img src="@imagePath" style="max-width: 50px; max-height: 50px;" alt="Product Image" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)

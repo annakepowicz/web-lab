@@ -33,10 +33,12 @@
             Image
         </dt>
         <dd class="col-sm-10">
-             @if (!string.IsNullOrEmpty(Model.ImageName))
-            {
-                <img src="~/upload/@Model.ImageName" style="max-width: 200px;" />
+            @{
+                var imagePath = string.IsNullOrEmpty(Model.ImageName) 
+                    ? "/images/default.png" 
+                    : "/upload/" + Model.ImageName;
             }
+            <img src="@imagePath" class="img-fluid" alt="Full Image" />
         </dd>
     </dl>
     
