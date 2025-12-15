@@ -24,3 +24,8 @@ obj/
 # Secrets
 appsettings.*.json
 !appsettings.json   # wyjątek - zostaje tylko podstawowy
+
+# Database files
+*.db
+*.db-shm
+*.db-wal
