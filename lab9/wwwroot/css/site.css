@@ -30,8 +30,7 @@ body {
   text-align: start;
 }
 
-.container-info {
-  position: fixed; 
+.container-info { 
   bottom: 0; 
   left: 0; 
   width: 100%; 
