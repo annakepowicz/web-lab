@@ -173,25 +173,27 @@ namespace lab9.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
+{
+    var article = await _context.Articles.FindAsync(id);
+    if (article != null)
+    {
+        if (!string.IsNullOrEmpty(article.ImageName))
         {
-            var article = await _context.Articles.FindAsync(id);
-            if (article != null)
-            {
-                // Usuwanie pliku z dysku, jeśli istnieje 
-                if (!string.IsNullOrEmpty(article.ImageName))
-                {
-                    string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "upload", article.ImageName);
-                    if (System.IO.File.Exists(filePath))
-                    {
-                        System.IO.File.Delete(filePath);
-                    }
-                }
+            string uploadFolder = Path.Combine(_hostingEnvironment.WebRootPath, "upload");
+            string filePath = Path.Combine(uploadFolder, article.ImageName);
 
-                _context.Articles.Remove(article);
-                await _context.SaveChangesAsync();
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
             }
-            return RedirectToAction(nameof(Index));
         }
+
+        _context.Articles.Remove(article);
+    }
+    
+    await _context.SaveChangesAsync();
+    return RedirectToAction(nameof(Index));
+}
 
         private bool ArticleExists(int id)
         {
