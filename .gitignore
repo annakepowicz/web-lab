@@ -29,3 +29,6 @@ appsettings.*.json
 *.db
 *.db-shm
 *.db-wal
+
+#lab
+lab9/wwwroot/upload/
