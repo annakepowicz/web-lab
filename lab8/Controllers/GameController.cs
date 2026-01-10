@@ -2,10 +2,29 @@ using Microsoft.AspNetCore.Mvc;
 
 public class GameController : Controller
 {
-    private static int min = 0;
-    private static int n = 10;
-    private static int randValue = 0;
-    private static int attempts = 0;
+    private int min
+    {
+        get => HttpContext.Session.GetInt32("min") ?? 0;
+        set => HttpContext.Session.SetInt32("min", value);
+    }
+
+    private int n
+    {
+        get => HttpContext.Session.GetInt32("n") ?? 10;
+        set => HttpContext.Session.SetInt32("n", value);
+    }
+
+    private int randValue
+    {
+        get => HttpContext.Session.GetInt32("randValue") ?? 0;
+        set => HttpContext.Session.SetInt32("randValue", value);
+    }
+
+    private int attempts
+    {
+        get => HttpContext.Session.GetInt32("attempts") ?? 0;
+        set => HttpContext.Session.SetInt32("attempts", value);
+    }
     private static Random random = new Random();
 
     [Route("Set,{min},{n}")]
@@ -18,8 +37,8 @@ public class GameController : Controller
             return View();
         }
 
-        GameController.n = n;
-        GameController.min = min;
+        this.n = n;
+        this.min = min;
         
         ViewBag.message = $"Number range set to: {min} to {n}.";
         ViewBag.cssClass = "blue";
