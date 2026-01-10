@@ -1,0 +1,28 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    
+    <div class="mt-4">
+        <a asp-page="/Shop/Index" class="btn btn-primary btn-lg">
+            Go to Shop
+        </a>
+    </div>
+    
+    <div class="mt-4">
+        <a asp-page="/Articles/Index" class="btn btn-secondary btn-lg">
+            Go to Articles
+        </a>
+    </div>
+    
+    <div class="mt-4">
+        <a asp-page="/Categories/Index" class="btn btn-secondary btn-lg">
+            Go to Categories
+        </a>
+    </div>
+</div>

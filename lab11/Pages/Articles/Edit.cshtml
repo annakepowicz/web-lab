@@ -1,0 +1,62 @@
+@page
+@model lab11.Pages.Articles.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+<h4>Article</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @* Formularz w Razor Pages domyślnie wysyła POST do tej samej strony *@
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            @* Ukryte pola identyfikatora i nazwy obrazka  *@
+            <input type="hidden" asp-for="Article.Id" />
+            <input type="hidden" asp-for="Article.ImageName" />
+
+            <div class="form-group mb-3">
+                <label asp-for="Article.Title" class="control-label"></label>
+                <input asp-for="Article.Title" class="form-control" />
+                <span asp-validation-for="Article.Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Article.Price" class="control-label"></label>
+                <input asp-for="Article.Price" class="form-control" />
+                <span asp-validation-for="Article.Price" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Article.CategoryId" class="control-label">Category</label>
+                <select asp-for="Article.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <span asp-validation-for="Article.CategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="control-label">Current Image:</label>
+                <div class="mb-2">
+                    @{
+
+                        var imagePath = string.IsNullOrEmpty(Model.Article.ImageName) 
+                            ? "/images/default.png" 
+                            : "/upload/" + Model.Article.ImageName;
+                    }
+                    <img src="@imagePath" class="img-fluid" alt="Current Image" style="max-width: 200px;" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

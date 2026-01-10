@@ -1,0 +1,81 @@
+@page
+@model lab11.Pages.Shop.IndexModel
+@{
+    ViewData["Title"] = "Shop";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        @* Filtry Kategorii *@
+        <div class="col-md-3">
+            <h4 class="mb-3">Filters</h4>
+            <div class="dropdown mb-4">
+                <button class="btn btn-outline-primary dropdown-toggle w-100" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    @if (Model.CurrentCategoryId != null)
+                    {
+                        var selected = Model.Categories.FirstOrDefault(c => c.Id == Model.CurrentCategoryId);
+                        @(selected?.Name ?? "Choose category")
+                    }
+                    else
+                    {
+                        <text>All categories</text>
+                    }
+                </button>
+                <ul class="dropdown-menu w-100" aria-labelledby="categoryDropdown">
+                    <li>
+
+                        <a class="dropdown-item @(Model.CurrentCategoryId == null ? "active" : "")" 
+                           asp-page="./Index" asp-route-categoryId="">All categories</a>
+                    </li>
+
+                    @foreach (var category in Model.Categories)
+                    {
+                        <li>
+                            <a class="dropdown-item @(Model.CurrentCategoryId == category.Id ? "active" : "")" 
+                               asp-page="./Index" asp-route-categoryId="@category.Id">
+                                @category.Name
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        @* Lista Artykułów *@
+        <div class="col-md-9">
+            <h4 class="mb-3">Articles</h4>
+            @if (!Model.Articles.Any())
+            {
+                <div class="alert alert-info">There are no articles in this category. </div>
+            }
+
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                @foreach (var item in Model.Articles)
+                {
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            @{
+                                var imagePath = string.IsNullOrEmpty(item.ImageName) 
+                                    ? "/image/default.jpg" 
+                                    : "/upload/" + item.ImageName;
+                            }
+                            <img src="@imagePath" class="card-img-top" alt="@item.Title" style="height: 200px; object-fit: cover;"> 
+
+                            <div class="card-body">
+                                <h5 class="card-title">@item.Title</h5> 
+                                <p class="card-text text-muted">@item.Category?.Name</p> 
+                                <h6 class="card-subtitle mb-2 text-primary font-weight-bold">
+                                    @item.Price.ToString("0.00") zł 
+                                </h6>
+                                @* Przycisk prowadzi do Details w Artykułach  *@
+                                <a class="btn btn-secondary btn-sm" 
+                                   asp-page="/Articles/Details" 
+                                   asp-route-id="@item.Id">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

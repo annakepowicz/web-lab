@@ -1,0 +1,34 @@
+@page
+@model lab11.Pages.Categories.CreateModel
+
+@{
+    ViewData["Title"] = "Create Category";
+}
+
+<h1>Create</h1>
+
+<h4>Category</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        @* Formularz wysyła dane metodą POST do PageModel *@
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group mb-3">
+                <label asp-for="Category.Name" class="control-label"></label>
+                @* Używamy Category.Name zgodnie z właściwością w PageModel  *@
+                <input asp-for="Category.Name" class="form-control" />
+                <span asp-validation-for="Category.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                @* Zmieniamy asp-action na asp-page  *@
+                <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

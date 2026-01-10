@@ -1,0 +1,52 @@
+@page
+@model lab11.Pages.Articles.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Article</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Article.Title) 
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Article.Title) 
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Article.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Article.Price) 
+        </dd>
+        <dt class="col-sm-2">
+            Category
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Article.Category.Name)
+        </dd>
+        <dt class="col-sm-2">
+            Image
+        </dt>
+        <dd class="col-sm-10">
+            @{
+                var imagePath = string.IsNullOrEmpty(Model.Article.ImageName) 
+                    ? "/images/default.png" 
+                    : "/upload/" + Model.Article.ImageName;
+            }
+            <img src="@imagePath" class="img-fluid" alt="Article Image" style="max-width: 200px;" />
+        </dd>
+    </dl>
+    
+    @* Formularz wysyłający żądanie POST do metody OnPostAsync *@
+    <form method="post">
+        <input type="hidden" asp-for="Article.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to List</a> 
+    </form>
+</div>
