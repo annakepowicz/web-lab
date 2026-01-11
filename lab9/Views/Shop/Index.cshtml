@@ -51,47 +51,74 @@
 
         <div class="col-md-9">
             @* Nagłówek i przycisk przejścia do koszyka *@
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4 class="mb-0">Articles</h4>
-                <a asp-controller="Shop" asp-action="Cart" class="btn btn-info">
-                    🛒 Go to Cart
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h3 class="mb-0">Products</h3>
+                <a asp-controller="Shop" asp-action="Cart" class="btn btn-primary position-relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.194-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                    </svg>
+                    View Cart
                 </a>
             </div>
             
             @if (!Model.Any())
             {
-                <div class="container-info">There is no articles in this category.</div>
+                <div class="alert alert-info">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-info-circle me-2" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                    </svg>
+                    There are no articles in this category.
+                </div>
             }
 
-            <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 @foreach (var item in Model)
                 {
                     <div class="col">
-                        <div class="card h-100 shadow-sm">
+                        <div class="card h-100 shadow-sm border-0">
                             @{
                                 var imagePath = string.IsNullOrEmpty(item.ImageName) 
                                     ? "/image/default.jpg" 
                                     : "/upload/" + item.ImageName;
                             }
-                            <img src="@imagePath" class="card-img-top" alt="@item.Title" 
-                                 style="height: 200px; object-fit: cover;">
-
-                            <div class="card-body">
-                                <h5 class="card-title">@item.Title</h5>
-                                <p class="card-text text-muted">@item.Category?.Name</p>
-                                <h6 class="card-subtitle mb-2 text-primary font-weight-bold">
-                                 @item.Price.ToString("0.00") zł
-                                </h6>
-                                <a class="btn btn-secondary btn-lg" 
-                                asp-controller="Article" 
-                                asp-action="Details" 
-                                asp-route-id="@item.Id">
-                                Details
-                                </a>
+                            <div class="position-relative overflow-hidden" style="height: 220px; background-color: #f8f9fa;">
+                                <img src="@imagePath" class="card-img-top h-100" alt="@item.Title" 
+                                     style="object-fit: cover; transition: transform 0.3s ease;">
                             </div>
-                            <form asp-controller="Shop" asp-action="AddToCart" asp-route-id="@item.Id" method="post">
-                                <button type="submit" class="btn btn-outline-success w-100">Dodaj do koszyka</button>
-                            </form>
+
+                            <div class="card-body d-flex flex-column">
+                                <div class="mb-2">
+                                    <span class="badge bg-secondary text-white">@item.Category?.Name</span>
+                                </div>
+                                <h5 class="card-title mb-2">@item.Title</h5>
+                                <div class="mt-auto">
+                                    <div class="mb-3">
+                                        <span class="fs-4 fw-bold text-primary">@item.Price.ToString("0.00") zł</span>
+                                    </div>
+                                    <div class="d-grid gap-2">
+                                        <a class="btn btn-outline-primary" 
+                                           asp-controller="Article" 
+                                           asp-action="Details" 
+                                           asp-route-id="@item.Id">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye me-1" viewBox="0 0 16 16">
+                                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                            </svg>
+                                            View Details
+                                        </a>
+                                        <form asp-controller="Shop" asp-action="AddToCart" asp-route-id="@item.Id" method="post" class="m-0">
+                                            <button type="submit" class="btn btn-success w-100">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus me-1" viewBox="0 0 16 16">
+                                                    <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9z"/>
+                                                    <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                                                </svg>
+                                                Add to Cart
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 }

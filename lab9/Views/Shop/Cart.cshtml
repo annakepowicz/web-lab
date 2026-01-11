@@ -5,74 +5,104 @@
     double totalCartSum = 0;
 }
 
-<div class="container mt-4">
-    <h2>Your Shopping Cart</h2>
-    <hr />
-
-    @if (Model == null || !Model.Any())
-    {
-        <div class="alert alert-warning">Your cart is empty.</div>
-        <a asp-controller="Shop" asp-action="Index" class="btn btn-primary">Go back to shop</a>
-    }
-    else
-    {
-        <table class="table table-hover align-middle">
-            <thead class="table-light">
-                <tr>
-                    <th>Image</th>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th style="width: 150px;">Quantity</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    var itemTotal = (double)item.Article.Price * item.Quantity;
-                    totalCartSum += itemTotal;
-                    
-                    <tr>
-                        <td>
-                            @{
-                                var imagePath = string.IsNullOrEmpty(item.Article.ImageName) 
-                                    ? "/image/default.jpg"
-                                    : "/upload/" + item.Article.ImageName;
-                            }
-                            <img src="@imagePath" alt="@item.Article.Title" style="width: 50px; height: 50px; object-fit: cover;" />
-                        </td>
-                        <td>@item.Article.Title</td>
-                        <td>@item.Article.Price.ToString("0.00") zł</td>
-                        <td>
-                            <div class="d-flex align-items-center">
-                                @* Przycisk minus *@
-                                <form asp-action="UpdateQuantity" asp-route-id="@item.Article.Id" asp-route-delta="-1" method="post" class="me-1">
-                                    <button type="submit" class="btn btn-sm btn-outline-secondary">-</button>
-                                </form>
-                                
-                                <span class="mx-2 fw-bold">@item.Quantity</span>
-                                
-                                @* Przycisk plus *@
-                                <form asp-action="UpdateQuantity" asp-route-id="@item.Article.Id" asp-route-delta="1" method="post" class="ms-1">
-                                    <button type="submit" class="btn btn-sm btn-outline-secondary">+</button>
-                                </form>
-                            </div>
-                        </td>
-                        <td>@itemTotal.ToString("0.00") zł</td>
-                    </tr>
-                }
-            </tbody>
-            <tfoot>
-                <tr class="table-active">
-                    <td colspan="4" class="text-end"><strong>Grand Total:</strong></td>
-                    <td><strong>@totalCartSum.ToString("0.00") zł</strong></td>
-                </tr>
-            </tfoot>
-        </table>
-
-        <div class="d-flex justify-content-between mt-4">
-            <a asp-controller="Shop" asp-action="Index" class="btn btn-secondary">Continue Shopping</a>
-            <button class="btn btn-success btn-lg">Checkout</button>
+<div class="container mt-4 mb-5">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4">Your Shopping Cart</h2>
+            
+            @if (Model == null || !Model.Any())
+            {
+                <div class="card shadow-sm">
+                    <div class="card-body text-center py-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-cart-x text-muted mb-3" viewBox="0 0 16 16">
+                            <path d="M7.354 5.646a.5.5 0 1 0-.708.708L7.793 7.5 6.646 8.646a.5.5 0 1 0 .708.708L8.5 8.207l1.146 1.147a.5.5 0 0 0 .708-.708L9.207 7.5l1.147-1.146a.5.5 0 0 0-.708-.708L8.5 6.793z"/>
+                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zm3.915 10L3.102 4h10.796l-1.313 7zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                        </svg>
+                        <h4 class="text-muted mb-3">Your cart is empty</h4>
+                        <p class="text-muted mb-4">Add some products to your cart to get started.</p>
+                        <a asp-controller="Shop" asp-action="Index" class="btn btn-primary btn-lg">Continue Shopping</a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="mb-3">
+                    <a asp-controller="Shop" asp-action="Index" class="btn btn-outline-secondary">
+                        Continue Shopping
+                    </a>
+                </div>
+                
+                <div class="card shadow-sm">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th style="width: 120px;" class="ps-4">Image</th>
+                                        <th>Product</th>
+                                        <th class="text-center" style="width: 120px;">Unit Price</th>
+                                        <th class="text-center" style="width: 180px;">Quantity</th>
+                                        <th class="text-end pe-4" style="width: 120px;">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        var itemTotal = (double)item.Article.Price * item.Quantity;
+                                        totalCartSum += itemTotal;
+                                        
+                                        <tr>
+                                            <td class="ps-4">
+                                                @{
+                                                    var imagePath = string.IsNullOrEmpty(item.Article.ImageName) 
+                                                        ? "/image/default.jpg"
+                                                        : "/upload/" + item.Article.ImageName;
+                                                }
+                                                <img src="@imagePath" alt="@item.Article.Title" 
+                                                     class="rounded" 
+                                                     style="width: 80px; height: 80px; object-fit: cover;" />
+                                            </td>
+                                            <td>
+                                                <h6 class="mb-1">@item.Article.Title</h6>
+                                                <small class="text-muted">@item.Article.Category?.Name</small>
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="fw-semibold">@item.Article.Price.ToString("0.00") zł</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <form asp-action="UpdateQuantity" asp-route-id="@item.Article.Id" asp-route-delta="-1" method="post" class="m-0">
+                                                        <button type="submit" class="btn btn-sm btn-outline-secondary rounded-circle" style="width: 32px; height: 32px; padding: 0;">-</button>
+                                                    </form>
+                                                    
+                                                    <span class="mx-3 fw-bold fs-5" style="min-width: 30px; text-align: center;">@item.Quantity</span>
+                                                    
+                                                    <form asp-action="UpdateQuantity" asp-route-id="@item.Article.Id" asp-route-delta="1" method="post" class="m-0">
+                                                        <button type="submit" class="btn btn-sm btn-outline-secondary rounded-circle" style="width: 32px; height: 32px; padding: 0;">+</button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                            <td class="text-end pe-4">
+                                                <span class="fw-bold fs-5 text-primary">@itemTotal.ToString("0.00") zł</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr class="table-active">
+                                        <td colspan="4" class="text-end pe-4"><strong>Grand Total:</strong></td>
+                                        <td class="text-end pe-4"><strong>@totalCartSum.ToString("0.00") zł</strong></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 text-end">
+                    <button class="btn btn-primary btn-lg">Checkout</button>
+                </div>
+            }
         </div>
-    }
+    </div>
 </div>
