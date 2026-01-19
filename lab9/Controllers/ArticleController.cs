@@ -7,9 +7,12 @@ using System.IO;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace lab9.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ArticleController : Controller
     {
         private readonly ShopDbContext _context;
@@ -63,7 +66,6 @@ namespace lab9.Controllers
         // POST: Article/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        // Dodajemy parametr IFormFile do przesyłania pliku [cite: 38]
         public async Task<IActionResult> Create([Bind("Id,Title,Price,ExpirationDate,CategoryId,FormFile")] Article article)
         {
             if (ModelState.IsValid)

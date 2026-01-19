@@ -1,0 +1,50 @@
+@model lab9.Models.OrderViewModel
+
+<div class="container mt-4">
+    <h2>Podsumowanie zamówienia</h2>
+
+    @* Tabelka podsumowująca - bez możliwości modyfikacji (Punkt 5) *@
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th>Produkt</th>
+                <th>Cena</th>
+                <th>Ilość</th>
+                <th>Suma</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CartItems)
+            {
+                <tr>
+                    <td>@item.Article.Title</td>
+                    <td>@item.Article.Price.ToString("0.00") zł</td>
+                    <td>@item.Quantity</td>
+                    <td>@((item.Article.Price * item.Quantity).ToString("0.00")) zł</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <hr />
+
+    @* Formularz danych osobowych i dostawy (Punkt 5) *@
+    <form asp-action="ConfirmOrder" method="post" class="row g-3">
+        <div class="col-md-6">
+            <label class="form-label">Imię i Nazwisko</label>
+            <input asp-for="FullName" class="form-control" required />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Adres dostawy</label>
+            <input asp-for="Address" class="form-control" required />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Sposób płatności</label>
+            <select asp-for="PaymentMethod" class="form-select" asp-items="@(new SelectList(Model.PaymentOptions))">
+            </select>
+        </div>
+        <div class="col-12 mt-4">
+            <button type="submit" class="btn btn-success btn-lg">Potwierdź zamówienie</button> 
+        </div>
+    </form>
+</div>

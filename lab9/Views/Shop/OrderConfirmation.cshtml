@@ -1,0 +1,23 @@
+@model lab9.Models.OrderViewModel
+
+<div class="container mt-5 text-center">
+    <div class="alert alert-success">
+        <h2 class="display-4">Zamówienie potwierdzone!</h2>
+        <p class="lead">Dziękujemy za zakupy w naszym sklepie.</p>
+    </div>
+
+    <div class="card mt-4 mx-auto" style="max-width: 600px;">
+        <div class="card-header bg-primary text-white">
+            <h4>Twoje dane</h4>
+        </div>
+        <div class="card-body">
+            <p><strong>Imię i nazwisko:</strong> @Model.FullName</p> 
+            <p><strong>Wybrany sposób płatności:</strong> @Model.PaymentMethod</p> 
+            <p><strong>Kwota zamówienia:</strong> @Model.TotalPrice.ToString("0.00") zł</p>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a asp-controller="Shop" asp-action="Index" class="btn btn-outline-primary">Wróć do sklepu</a>
+    </div>
+</div>

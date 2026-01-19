@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using lab9.Models;
 
 namespace lab9.Controllers
@@ -33,6 +34,7 @@ namespace lab9.Controllers
             return View(articles);
         }
 
+        [Authorize(Policy = "NotAdmin")]
         [HttpPost]
         public IActionResult AddToCart(int id)
         {
@@ -59,6 +61,7 @@ namespace lab9.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Policy = "NotAdmin")]
         public async Task<IActionResult> Cart()
         {
             var cartItems = new List<CartItem>();
@@ -83,6 +86,60 @@ namespace lab9.Controllers
             }
 
             return View(cartItems);
+        }
+
+        [Authorize] // Wymaga zalogowania (Punkt 3)
+        public async Task<IActionResult> Order()
+        {
+            var cartItems = new List<CartItem>();
+            double total = 0;
+
+            // Pobieranie danych z ciasteczek (podobnie jak w akcji Cart)
+            foreach (var cookie in Request.Cookies)
+            {
+                if (cookie.Key.StartsWith("basket_"))
+                {
+                    if (int.TryParse(cookie.Key.Replace("basket_", ""), out int articleId))
+                    {
+                        var article = await _context.Articles.FirstOrDefaultAsync(a => a.Id == articleId);
+                        if (article != null)
+                        {
+                            int quantity = int.Parse(cookie.Value);
+                            cartItems.Add(new CartItem { Article = article, Quantity = quantity });
+                            total += article.Price * quantity;
+                        }
+                    }
+                }
+            }
+
+            if (!cartItems.Any()) return RedirectToAction("Index");
+
+            var model = new OrderViewModel { 
+                CartItems = cartItems, 
+                TotalPrice = total 
+            };
+            return View(model);
+        }
+
+        // POST: Shop/ConfirmOrder
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ConfirmOrder(OrderViewModel model)
+        {
+            // Tutaj można dodać zapis do bazy danych (dla chętnych)
+
+            // Punkt 6: Czyszczenie koszyka (usuwanie ciasteczek)
+            foreach (var cookie in Request.Cookies.Keys)
+            {
+                if (cookie.StartsWith("basket_"))
+                {
+                    Response.Cookies.Delete(cookie);
+                }
+            }
+
+            // Przekazujemy dane do widoku potwierdzenia
+            return View("OrderConfirmation", model);
         }
 
         [HttpPost]
