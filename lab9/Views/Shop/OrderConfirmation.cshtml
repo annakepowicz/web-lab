@@ -1,23 +1,48 @@
 @model lab9.Models.OrderViewModel
 
-<div class="container mt-5 text-center">
-    <div class="alert alert-success">
-        <h2 class="display-4">Zamówienie potwierdzone!</h2>
-        <p class="lead">Dziękujemy za zakupy w naszym sklepie.</p>
-    </div>
+@{
+    ViewData["Title"] = "Zamówienie złożone";
+}
 
-    <div class="card mt-4 mx-auto" style="max-width: 600px;">
-        <div class="card-header bg-primary text-white">
-            <h4>Twoje dane</h4>
-        </div>
-        <div class="card-body">
-            <p><strong>Imię i nazwisko:</strong> @Model.FullName</p> 
-            <p><strong>Wybrany sposób płatności:</strong> @Model.PaymentMethod</p> 
-            <p><strong>Kwota zamówienia:</strong> @Model.TotalPrice.ToString("0.00") zł</p>
-        </div>
-    </div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-primary shadow-lg">
+                @* Nagłówek w kolorze niebieskim *@
+                <div class="card-header bg-primary text-white py-3">
+                    <h2 class="mb-0 text-center text-uppercase" style="letter-spacing: 2px;">
+                        <i class="bi bi-check-circle-fill"></i> Zamówienie potwierdzone
+                    </h2>
+                </div>
+                
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <p class="lead">Dziękujemy za zakupy, <strong>@Model.FullName</strong>!</p>
+                        <p class="text-muted">Twoje zamówienie zostało przekazane do realizacji.</p>
+                    </div>
 
-    <div class="mt-4">
-        <a asp-controller="Shop" asp-action="Index" class="btn btn-outline-primary">Wróć do sklepu</a>
+                    <div class="bg-light p-4 rounded-3 border-start border-primary border-4 mb-4">
+                        <h4 class="text-primary mb-3">Szczegóły dostawy i płatności</h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><strong>Odbiorca:</strong> @Model.FullName</li>
+                            <li class="mb-2"><strong>Adres:</strong> @Model.Address</li>
+                            <li class="mb-2"><strong>Sposób płatności:</strong> <span class="badge bg-info text-dark">@Model.PaymentMethod</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center p-3 bg-primary text-white rounded">
+                        <span class="fs-5">Łączna kwota do zapłaty:</span>
+                        <span class="fs-3 fw-bold">@Model.TotalPrice.ToString("0.00") zł</span>
+                    </div>
+                </div>
+
+                <div class="card-footer bg-white py-3 text-center">
+                    <p class="small text-muted mb-3">Twój koszyk został wyczyszczony.</p>
+                    <a asp-controller="Shop" asp-action="Index" class="btn btn-outline-primary btn-lg">
+                        Wróć do strony głównej
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

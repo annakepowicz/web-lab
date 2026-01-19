@@ -16,11 +16,38 @@ namespace lab9.Controllers
             _context = context;
         }
 
-        // GET: api/ArticlesApi
+        // GET: api/ArticlesApi?skip=0&take=6&categoryId=1
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Article>>> GetArticles()
+        public async Task<ActionResult<IEnumerable<object>>> GetArticles(
+            [FromQuery] int skip = 0, 
+            [FromQuery] int take = 6, 
+            [FromQuery] int? categoryId = null)
         {
-            return await _context.Articles.ToListAsync();
+            var query = _context.Articles
+                .Include(a => a.Category)
+                .AsQueryable();
+
+            // Filtrowanie po kategorii jeśli podano
+            if (categoryId.HasValue)
+            {
+                query = query.Where(a => a.CategoryId == categoryId.Value);
+            }
+
+            var articles = await query
+                .OrderBy(a => a.Id)
+                .Skip(skip)
+                .Take(take)
+                .Select(a => new
+                {
+                    id = a.Id,
+                    title = a.Title,
+                    price = a.Price,
+                    imageName = a.ImageName,
+                    categoryName = a.Category != null ? a.Category.Name : ""
+                })
+                .ToListAsync();
+
+            return Ok(articles);
         }
 
         // Punkt 9: Ograniczenie dostępu tylko dla Admina (Authorize)
