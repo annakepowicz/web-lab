@@ -130,13 +130,15 @@
 </div>
 @section Scripts {
     <script>
-        let skip = @Model.Count(); // Zaczynamy od liczby już wyświetlonych artykułów
-        const take = 6;
+        let skip = @(ViewBag.InitialCount ?? 6); // Zaczynamy od liczby już wyświetlonych artykułów
+        const take = 3;
         const categoryId = @(ViewBag.CurrentCategoryId ?? "null");
 
-        $("#load-more").click(function () {
-            const button = $(this);
-            button.prop('disabled', true).text('Ładowanie...');
+        document.getElementById("load-more").addEventListener("click", function() {
+            const button = this;
+            const originalText = button.textContent;
+            button.disabled = true;
+            button.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Ładowanie...';
             
             // Budujemy URL z uwzględnieniem kategorii
             let url = `/api/ArticlesApi?skip=${skip}&take=${take}`;
@@ -144,16 +146,20 @@
                 url += `&categoryId=${categoryId}`;
             }
             
-            $.ajax({
-                url: url,
-                type: 'GET',
-                dataType: 'json',
-                success: function (data) {
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) throw new Error('Błąd sieci');
+                    return response.json();
+                })
+                .then(data => {
                     if (data.length === 0) {
-                        button.fadeOut();
+                        button.style.display = 'none';
+                        alert('To już wszystkie produkty!');
                         return;
                     }
 
+                    const container = document.getElementById('articles-container');
+                    
                     data.forEach(article => {
                         // Ustalamy ścieżkę do obrazka
                         const imagePath = article.imageName 
@@ -161,7 +167,7 @@
                             : '/image/default.jpg';
                         
                         // Tworzymy pełną kartę produktu zgodną ze stylem początkowym
-                        let html = `
+                        const html = `
                             <div class="col">
                                 <div class="card h-100 shadow-sm border-0">
                                     <div class="position-relative overflow-hidden" style="height: 220px; background-color: #f8f9fa;">
@@ -199,17 +205,24 @@
                                     </div>
                                 </div>
                             </div>`;
-                        $("#articles-container").append(html);
+                        
+                        container.insertAdjacentHTML('beforeend', html);
                     });
                     
                     skip += data.length;
-                    button.prop('disabled', false).text('Pokaż kolejne');
-                },
-                error: function() {
-                    button.prop('disabled', false).text('Pokaż kolejne');
+                    button.disabled = false;
+                    button.textContent = originalText;
+                    
+                    if (data.length < take) {
+                        button.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Błąd:', error);
+                    button.disabled = false;
+                    button.textContent = 'Błąd. Spróbuj ponownie';
                     alert('Wystąpił błąd podczas wczytywania produktów');
-                }
-            });
+                });
         });
     </script>
 }

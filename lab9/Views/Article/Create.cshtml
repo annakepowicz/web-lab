@@ -38,7 +38,7 @@
             <div class="form-group mb-3">
                 <label asp-for="FormFile" class="control-label">Photo</label>
                 <div class="custom-file">
-                    @* onchange="previewFile(event)" wywołuje skrypt podglądu [cite: 61] *@
+                    @* onchange="previewFile(event)" wywołuje skrypt podglądu  *@
                     <input asp-for="FormFile" class="form-control custom-file-input" onchange="previewFile(event)">
                     <label class="custom-file-label">Choose a file...</label>
                 </div>
@@ -61,7 +61,6 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-    @* Skrypt JavaScript do wyświetlania podglądu obrazka [cite: 69, 70, 71, 72, 73, 74, 75, 76] *@
     <script>
         var previewFile = function (event) {
             var reader = new FileReader();

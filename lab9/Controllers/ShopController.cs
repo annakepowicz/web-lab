@@ -18,9 +18,11 @@ namespace lab9.Controllers
         // GET: Shop/Index?categoryId=5
         public async Task<IActionResult> Index(int? categoryId)
         {
-            ViewBag.Categories = await _context.Categories.ToListAsync();
+            const int initialTake = 3; 
             
+            ViewBag.Categories = await _context.Categories.ToListAsync();
             ViewBag.CurrentCategoryId = categoryId;
+            ViewBag.InitialCount = initialTake; 
 
             var articlesQuery = _context.Articles.Include(c => c.Category).AsQueryable();
 
@@ -29,7 +31,7 @@ namespace lab9.Controllers
                 articlesQuery = articlesQuery.Where(a => a.CategoryId == categoryId);
             }
 
-            var articles = await articlesQuery.ToListAsync();
+            var articles = await articlesQuery.Take(initialTake).ToListAsync(); 
 
             return View(articles);
         }
