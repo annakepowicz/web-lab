@@ -5,6 +5,16 @@ obj/
 .wwwroot/lib/
 *.sln
 
+# Zależności
+node_modules/
+
+# Cache Angulara i buildy
+.angular/
+dist/
+tmp/
+out-tsc/
+bazel-out/
+
 # User-specific files
 *.user
 *.suo
